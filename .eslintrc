@@ -1,0 +1,21 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["@typescript-eslint"],
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "require-jsdoc": "off",
+    "quotes": "off",
+    "eol-last": "off",
+    "linebreak-style": "off",
+    "comma-dangle": "off"
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "plugin:@typescript-eslint/recommended"
+  ]
+}
