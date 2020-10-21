@@ -5,8 +5,8 @@ import { tasksListSelector } from "./tasks.selectors";
 export const TASKS_LIST_RECEIVED = "TASKS_LIST_RECEIVED";
 export const FIND_TASKS_LIST = "FIND_TASKS_LIST";
 
-export const tasksListReceived = (tasksList: any[]) => {
-  debugger;
+export const tasksListReceived = (tasksList: []) => {
+ 
   return {
     type: TASKS_LIST_RECEIVED,
     payload: {
