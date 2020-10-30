@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect, memo } from "react";
 import Task from "./Task";
 import { connect } from "react-redux";
 import {
@@ -6,27 +6,30 @@ import {
   findTasksListSelector,
 } from "../tasks.selectors";
 import * as tasksActions from "../task.action";
+
 type TaskListProps = {
   tasksList: [];
   deleteTask: any;
   updateTask: any;
   getTasksList: any;
-  find: any;
+  find: {};
+
 };
+
 const TaskList: React.FC<TaskListProps> = ({
-  tasksList,
-  getTasksList,
   deleteTask,
   updateTask,
   find,
+  tasksList,
+  getTasksList,
 }) => {
-  useEffect(() => {
-    getTasksList();
-  }, [find.value]);
+  const filtered = useTasyListLogic( 
+  tasksList,
+    getTasksList, find)
+  
   return (
     <ul className="list">
-      {tasksList
-        .filter(({ value }: any) => value.includes(find.value))
+      {filtered
         .map((task: any) => (
           <Task
             key={task.id}
@@ -38,7 +41,17 @@ const TaskList: React.FC<TaskListProps> = ({
     </ul>
   );
 };
-const mapState = (state: Object | string) => {
+
+const useTasyListLogic = (tasksList:[], getTasksList:any,find:any) => {
+     useEffect(() => {
+      getTasksList();
+     }, []);
+  
+  const filterList = tasksList.filter(({ value }: any) => value.includes(find.value))
+  return filterList
+}
+
+const mapState = (state: string) => {
   return {
     tasksList: sortedTasksListSelector(state),
     find: findTasksListSelector(state),
@@ -51,4 +64,4 @@ const mapDispatch = {
   updateTask: tasksActions.updateTask,
 };
 
-export default connect(mapState, mapDispatch)(TaskList);
+export default connect(mapState, mapDispatch)(memo(TaskList))
